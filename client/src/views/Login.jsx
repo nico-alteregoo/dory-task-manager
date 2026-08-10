@@ -75,7 +75,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F9F1] flex flex-col justify-center items-center p-4">
+    <div className="min-h-screen flex flex-col justify-center items-center p-4">
       {/* Header */}
       <div className="text-center mb-6">
         <h1 className="text-3xl font-extrabold text-[#00B14F] tracking-tight">
@@ -87,7 +87,7 @@ export default function Auth() {
       </div>
 
       {/* Form Card */}
-      <div className="w-full max-w-sm bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+      <div className="w-full max-w-sm bg-white rounded-3xl p-6">
         
         {/* Error / Success Alerts */}
         {error && (
@@ -135,7 +135,7 @@ export default function Auth() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-gray-500 mb-3">
               Password
             </label>
             <input
@@ -154,7 +154,7 @@ export default function Auth() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 mt-2 bg-[#00B14F] hover:bg-[#009643] text-white font-semibold rounded-full shadow-md hover:shadow-lg transition active:scale-[0.98] disabled:opacity-50"
+            className="w-full py-3 mt-2 bg-[#00B14F] hover:bg-[#009643] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition active:scale-[0.98] disabled:opacity-50"
           >
             {loading ? 'Processing...' : isLogin ? 'Log In' : 'Sign Up'}
           </button>

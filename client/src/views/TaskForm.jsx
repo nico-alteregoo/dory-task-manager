@@ -226,7 +226,7 @@ export default function TaskForm() {
 
             <button
               type="submit"
-              className="w-full py-3 mt-2 bg-[#4c7f1f] text-white font-semibold rounded-lg"
+              className="w-full py-3 mt-2 bg-[#00B14F] text-white font-semibold rounded-lg"
             >
               Save Task
             </button>

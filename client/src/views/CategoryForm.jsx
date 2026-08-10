@@ -71,7 +71,7 @@ export default function CategoryForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 mt-1 bg-[#4c7f1f] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition active:scale-[0.98] disabled:opacity-50"
+            className="w-full py-3 mt-1 bg-[#00B14F] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition active:scale-[0.98] disabled:opacity-50"
           >
             {loading ? 'Saving...' : 'Save Category'}
           </button>
