@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import { where } from "sequelize";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import protectRoute from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
@@ -99,6 +100,28 @@ router.post('/login', async (req, res) => {
     console.log("Error in login route", error);
     res.status(500).json({ message: "Internal server error"});
   }
+})
+
+router.get('/me', protectRoute, async (req, res) => {
+
+  try {
+    const user = req.user;
+
+    // console.log(user);
+    if(!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    return res.json({
+      user: user
+    });
+
+    
+  } catch (error) {
+    console.log("Error getting user", error);
+    return res.status(500).json({ message: "Internal server error"});
+  }
+
 })
 
 export default router;
