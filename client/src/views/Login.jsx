@@ -149,13 +149,7 @@ export default function Auth() {
             />
           </div>
 
-          {isLogin && (
-            <div className="text-right">
-              <a href="#" className="text-xs text-[#00B14F] hover:underline">
-                Forgot password?
-              </a>
-            </div>
-          )}
+
 
           <button
             type="submit"
