@@ -29,7 +29,7 @@ export default function DefaultLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F9F1]">
+    <div className="min-h-screen ">
       {/* Top Navigation Bar */}
       <header className="bg-white border-b border-gray-100 px-4 md:px-8 py-3.5 flex justify-between items-center shadow-sm sticky top-0 z-40">
         <div className="flex items-center gap-3">

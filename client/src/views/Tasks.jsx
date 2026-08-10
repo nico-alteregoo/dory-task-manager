@@ -113,7 +113,7 @@ export default function Tasks() {
         {/* Header — bigger contrast between title and meta info, thin rule to ground it */}
         <div className="flex flex-wrap justify-between items-end gap-4 pb-5 mb-6 border-b border-gray-200">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Tasks</h1>
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight bg-[#F4F9F1]">Tasks</h1>
             <p className="text-sm text-gray-500 mt-1">
               {pagination.total > 0 ? `${pagination.total} total` : 'Manage and track your everyday items'}
             </p>
