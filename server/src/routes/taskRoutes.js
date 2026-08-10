@@ -58,8 +58,8 @@ router.get('/', protectRoute, async (req, res) => {
     const { status, category_id, search } = req.query;
     const where = { userId };
 
-    const page = req.query.page || 1;
-    const limit = req.query.limit || 10;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
 
     const offset = (page - 1) * limit;
 
@@ -137,28 +137,133 @@ router.get('/:id', protectRoute, async (req, res) => {
 
 router.put('/:id', protectRoute, async (req, res) => {
   try {
-    const userId = req.user.id;
     const taskId = req.params.id;
+    const userId = req.user.id;
 
-    // get field requests
-    const {title, description, status, dueDate, category_id} = req.body;
+    const {
+      title,
+      description,
+      status,
+      dueDate,
+      categoryId
+    } = req.body;
 
-    // find task
+    // Find task belonging to logged-in user
     const task = await Task.findOne({
       where: {
         id: taskId,
         userId
       }
-    })
+    });
 
-    if(!task) {
-      return res.status(404).json({ message: "Task not found" });
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found"
+      });
     }
 
-    
+    // Validate and update title
+    if (title !== undefined) {
+      if (title.trim() === "") {
+        return res.status(400).json({
+          message: "Title cannot be empty"
+        });
+      }
+
+      task.title = title;
+    }
+
+    // Update description
+    if (description !== undefined) {
+      task.description = description;
+    }
+
+    // Validate and update status
+    if (status !== undefined) {
+      const validStatuses = [
+        "pending",
+        "in_progress",
+        "completed"
+      ];
+
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({
+          message: "Invalid status"
+        });
+      }
+
+      task.status = status;
+    }
+
+    // Update due date
+    if (dueDate !== undefined) {
+      task.dueDate = dueDate;
+    }
+
+    // Validate category ownership and update category
+    if (categoryId !== undefined) {
+      const category = await Category.findOne({
+        where: {
+          id: categoryId,
+          userId
+        }
+      });
+
+      if (!category) {
+        return res.status(404).json({
+          message: "Category not found"
+        });
+      }
+
+      task.categoryId = categoryId;
+    }
+
+    await task.save();
+
+    return res.status(200).json({
+      task
+    });
+
   } catch (error) {
-    
+    console.log("Error updating task", error);
+
+    return res.status(500).json({
+      message: "Internal server error"
+    });
   }
-})
+});
+
+router.delete('/:id', protectRoute, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const taskId = req.params.id;
+
+    const task = await Task.findOne({
+      where: {
+        id: taskId,
+        userId
+      }
+    });
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found"
+      });
+    }
+
+    await task.destroy();
+
+    return res.status(200).json({
+      message: "Task deleted successfully"
+    });
+
+  } catch (error) {
+    console.log("Error deleting task", error);
+
+    return res.status(500).json({
+      message: "Internal server error"
+    });
+  }
+});
 
 export default router;
