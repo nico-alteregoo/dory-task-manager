@@ -8,7 +8,9 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL
+}));
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +19,7 @@ app.get('/api/health', (req, res) => {
     status: "ok"
   });
 });
-
+ 
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/tasks', taskRoutes);

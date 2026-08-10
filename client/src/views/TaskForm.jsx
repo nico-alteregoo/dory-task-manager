@@ -57,8 +57,11 @@ export default function TaskForm() {
     setLoading(true);
 
     const payload = {
-      ...task,
-      category_id: task.categoryId, // Ensure field name aligns with backend expectation
+      title: task.title,
+      description: task.description,
+      status: task.status,
+      dueDate: task.dueDate || null,   // empty string -> null, not ''
+      category_id: task.categoryId,
     };
 
     if (id) {
