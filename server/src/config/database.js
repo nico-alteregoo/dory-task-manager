@@ -3,11 +3,11 @@ import "dotenv/config";
 
 const sequelize = new Sequelize(
   process.env.MYSQL_DATABASE,
-  process.env.MYSQL_USER,
-  process.env.MYSQL_PASSWORD,
+  process.env.MYSQLUSER,
+  process.env.MYSQLPASSWORD,
   {
-    host: process.env.MYSQL_HOST,
-    port: process.env.MYSQL_PORT,
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
     dialect: "mysql",
   },
 );
